@@ -43,21 +43,28 @@ sudo mkdir -p xorg.conf.d
 sudo nano /etc/X11/xorg.conf.d/99-ads7846-cal.conf
 
 
-
 waveshare lcds, find out if it is compatible
 --------------
 see http://www.waveshare.com/wiki/
 
-Run with openjdk
-----------------
-$ java -Djava.ext.dirs=~/openjfx/armv6hf-sdk/rt/lib/ext -jar YOUR_APP.jar
-
-$ java -Djavafx.platform=monocle -Dmonocle.screen.fb=/dev/fb1 -jar namefile.jar
-
-Oracle tutorial
----------------
-http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPiFX/raspberryfx.html#summary
-
 Weather project
 ---------------
 http://www.instructables.com/id/Raspberry-Pi-Internet-Weather-Station/
+
+Digital clock
+-------------
+The Digital clock comes with the Oracle JavaFx samples, the app runs on the
+Raspberry LCD screen on a window, need to investigate how to run it on full
+screen
+
+$ java -Djavafx.platform=monocle -Dmonocle.screen.fb=/dev/fb1 -jar DigitalClock.jar
+
+See http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPiFX/raspberryfx.html#section4s2
+
+Oracle tutorial, Java FX on Raspberry Pi
+----------------------------------------
+http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPiFX/raspberryfx.html#summary
+
+Run with openjdk
+----------------
+$ java -Djava.ext.dirs=~/openjfx/armv6hf-sdk/rt/lib/ext -jar YOUR_APP.jar
