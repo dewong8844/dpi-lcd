@@ -1,0 +1,63 @@
+console on Mac:
+--------------
+$ screen /dev/tty.usbserial 115200
+
+- use ctrl-a d to detach
+
+lcd information
+---------------
+back: TFT35" Touch Shield For RPi SKU:AC-TFT35V2.1
+3.5 inch
+SPI interface
+resolution: 320 x 480 (8:5)
+touch controller: ADS7846 Touchscreen
+
+Setting up lcd on raspberry pi
+------------------------------
+see https://github.com/notro/fbtft/issues/252
+
+1. sudo REPO_URI=https://github.com/notro/rpi-firmware rpi-update
+
+2. sudo nano /boot/config.txt
+add
+dtoverlay=piscreen,speed=32000000,rotate=90
+dtparam=i2c_arm=on
+
+3.  sudo nano /usr/share/X11/xorg.conf.d/99-fbturbo.conf
+change option “fbdev” /dev/fb0 to /dev/fb1
+
+4.  sudo nano /boot/cmdline.txt
+add to end of line
+fbcon=map:10 fbcon=rotate:2 fbcon=font:VGA8x8
+
+5.  cd /tmp
+wget http://tronnes.org/downloads/xinput-calibrator_0.7.5-1_armhf.deb
+sudo dpkg -i -B xinput-calibrator_0.7.5-1_armhf.deb
+rm xinput-calibrator_0.7.5-1_armhf.deb
+
+6.  sudo wget -O /etc/X11/Xsession.d/xinput_calibrator_pointercal https://raw.github.com/tias/xinput_calibrator/master/scripts/xinput_calibrator_pointercal.sh
+echo "sudo /bin/sh /etc/X11/Xsession.d/xinput_calibrator_pointercal" | sudo tee -a /etc/xdg/lxsession/LXDE-pi/autostart
+
+7.  cd /etc/X11
+sudo mkdir -p xorg.conf.d
+sudo nano /etc/X11/xorg.conf.d/99-ads7846-cal.conf
+
+
+
+waveshare lcds, find out if it is compatible
+--------------
+see http://www.waveshare.com/wiki/
+
+Run with openjdk
+----------------
+$ java -Djava.ext.dirs=~/openjfx/armv6hf-sdk/rt/lib/ext -jar YOUR_APP.jar
+
+$ java -Djavafx.platform=monocle -Dmonocle.screen.fb=/dev/fb1 -jar namefile.jar
+
+Oracle tutorial
+---------------
+http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPiFX/raspberryfx.html#summary
+
+Weather project
+---------------
+http://www.instructables.com/id/Raspberry-Pi-Internet-Weather-Station/
